@@ -1,0 +1,6 @@
+{
+"Factory":{"x":0,"y":0,"width":512,"height":512,"mask":true},
+"Supplier":{"x":512,"y":0,"width":512,"height":512,"mask":true},
+"Customer":{"x":1024,"y":0,"width":512,"height":512,"mask":true},
+"DC":{"x":1536,"y":0,"width":512,"height":512,"mask":true}
+}
