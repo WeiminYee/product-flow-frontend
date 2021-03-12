@@ -44,13 +44,13 @@ const AddScenario = (props) => {
         scenario_id = response.data.scenario_id;
         //handleFileSubmission();
         //setSubmitted(true);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .then(response => {
         //console.log(scenario_id);
         handleFileSubmission();
         setSubmitted(true);
-        props.selectSubmit();
+        props.selectSubmit();        
       })
       .catch(e => {
         console.log(e);
@@ -91,8 +91,8 @@ const AddScenario = (props) => {
 		const locations_json = final_locations_renamed_df.to_json({orient: 'records'});
     //const locations_json_with_scenarioid = locations_json.map(loc => ({...loc, 'scenario_id' : scenario_id}));
     //put data into database;
-		console.log(scenario_id);
-    console.log(locations_json);
+		//console.log(scenario_id);
+    //console.log(locations_json);
     ScenarioDataService.createMultipleLocationsByScenarioId(scenario_id, locations_json)
       .then(response => {
         console.log(response.data.message);
@@ -117,11 +117,12 @@ const AddScenario = (props) => {
       //console.log(df_with_loc.toString());
       const productflow_json = productflow_renamed_df.to_json({orient: 'records'});
       //const productflow_json_with_scenarioid = productflow_json.map(prodf => ({...prodf, 'scenario_id' : scenario_id}));
-      console.log(scenario_id);
-      console.log(productflow_json);
+      //console.log(scenario_id);
+      //console.log(productflow_json);
       ScenarioDataService.createMultipleProductFlowByScenarioId(scenario_id, productflow_json)
         .then(response => {
           console.log(response.data.message);
+          props.passScenarioid(scenario_id);
         })
         .catch(e => {
           console.log(e);
@@ -136,7 +137,7 @@ const AddScenario = (props) => {
   // };
 
   return (
-    <div className="float-left container overlap mt-3 col-sm-3">
+    <div className="float-left container overlap mt-3 col-lg-4">
       <div className="card">
         <div className="card-body">
           <div className="submit-form">

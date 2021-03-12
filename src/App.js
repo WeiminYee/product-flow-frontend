@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ScenarioDataService from "./services/ScenarioService";
 import ExplainCard from "./components/explainCard";
 import DeckLayer from "./components/deckLayer";
 import Detail from "./components/detail";
@@ -11,7 +12,9 @@ class App extends Component {
     inbound: true,
     outbound: true,
     show: false,
-    submitted: false
+    submitted: false,
+    productFlows: [],
+    locations: []
   }
 
   handleLocation = (e) => {
@@ -25,6 +28,9 @@ class App extends Component {
   }
   handleCategory = (e) => {
     //console.log(e.target.text);
+    if (e.target.text !== this.category_name){
+      this.setState({location_name : 'Location'});
+    }
     if (e.target.text === 'All'){
       this.setState({category_name : 'Category'});
     }
@@ -49,10 +55,31 @@ class App extends Component {
     console.log(this.state.submitted);
   }
 
+  dataRetrieval = (id) => {
+    ScenarioDataService.locationsGet(id)
+      .then(response => {
+        this.setState({locations: response.data});
+        //console.log(this.state.locations);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    ScenarioDataService.productFlowsGet(id)
+      .then(response => {
+        this.setState({productFlows: response.data});
+        //console.log(this.state.productFlows);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   render() { 
     return ( 
       <div className = "container-fluid">
         <DeckLayer 
+          productFlowData = {this.state.productFlows}
+          locationData = {this.state.locations}
           locationName = {this.state.location_name}
           categoryName = {this.state.category_name} 
           inbound = {this.state.inbound}
@@ -60,6 +87,7 @@ class App extends Component {
         />
         {this.state.submitted?(
         <ExplainCard categoryName = {this.state.category_name} 
+          locationData = {this.state.locations}
           selectCategory = {this.handleCategory}
           locationName = {this.state.location_name} 
           selectLocation = {this.handleLocation}
@@ -72,9 +100,13 @@ class App extends Component {
         />):
         (<AddScenario 
           selectSubmit = {this.handleSubmit}
+          passScenarioid = {this.dataRetrieval}
         />)}
         {this.state.show && 
-        <Detail locationName = {this.state.location_name} 
+        <Detail
+          categoryName = {this.state.category_name}
+          locationName = {this.state.location_name} 
+          productFlowData = {this.state.productFlows}
           inbound = {this.state.inbound}
           outbound = {this.state.outbound}/>}
       </div> 

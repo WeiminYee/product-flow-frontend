@@ -1,0 +1,36 @@
+#Customer {
+    width: 617px;
+    height: 617px;
+    background: url("./icon_sprite_v2.png");
+    background-position: 0 0;
+    zoom:0.05;
+}
+#Factory {
+    width: 617px;
+    height: 616px;
+    background: url("./icon_sprite_v2.png");
+    background-position: 617px 0;
+    zoom:0.05;
+}
+#Supplier {
+    width: 617px;
+    height: 617px;
+    background: url("./icon_sprite_v2.png");
+    background-position: 0 617px;
+    zoom:0.05;
+}
+#DC {
+    /* background-position: -637 -617; */
+    /* left: -637px;
+    top: -617px; */
+    left: 0;  /* 0px from the left */
+    top:  0;  /* 0px from the top  */
+    background: url("./icon_sprite_v2.png");
+    /* left: 637px;
+    top: 617px; */
+    width: 617px;
+    height: 617px;
+    background-position: -637px -617px;
+    /* background-position: 637 617; */
+    zoom:0.05;
+}

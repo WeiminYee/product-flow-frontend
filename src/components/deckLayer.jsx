@@ -2,8 +2,8 @@ import React from 'react';
 import DeckGL from '@deck.gl/react';
 import {IconLayer, ArcLayer} from '@deck.gl/layers';
 import {StaticMap} from 'react-map-gl';
-import LocationData from '../map_data/locations.json';
-import ProductFlowData from '../map_data/productflow.json';
+//import LocationData from '../map_data/locations.json';
+//import ProductFlowData from '../map_data/productflow.json';
 import IconMapping from '../icon/icon_mapping_v2.json';
 import IconSpriteImage from '../icon/icon_sprite_v2.png';
 
@@ -11,50 +11,52 @@ import IconSpriteImage from '../icon/icon_sprite_v2.png';
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2VpbWlueWVlIiwiYSI6ImNraXRnZnY1ejAxNTMzNXFlaHFqeXYwbDAifQ.N6dyyIXYydGKEDnf5uD-VA';
 
 // Viewport settings
-const INITIAL_VIEW_STATE = {
+let INITIAL_VIEW_STATE = {
     latitude: 51.47,
     longitude: 0.45,
-    zoom: 4,
+    zoom: 3,
+    minZoom: 0,
+    maxZoom:10,
     bearing: 0,
-    pitch: 30
+    pitch: 30 // the white area on top is because of pitching
 };
 
 function DeckLayer(props) {
   let arcLayerData = [];
   let iconLayerData = [];
   if (props.locationName === 'Location' && props.categoryName ==='Category') {
-    arcLayerData = ProductFlowData;
-    iconLayerData = LocationData;
+    arcLayerData = props.productFlowData;
+    iconLayerData = props.locationData;
   }
   else if (props.locationName === 'Location' && props.categoryName !=='Category'){
     if (props.inbound){
-      arcLayerData = arcLayerData.concat(ProductFlowData.filter(flow => flow.ToType === props.categoryName));
+      arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.ToType === props.categoryName));
     }
     if (props.outbound){
-      arcLayerData = arcLayerData.concat(ProductFlowData.filter(flow => flow.FromType === props.categoryName));
+      arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.FromType === props.categoryName));
     }
     if (arcLayerData.length === 0){
-      iconLayerData = iconLayerData.concat(LocationData.filter(location => location.Type === props.categoryName));
+      iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Type === props.categoryName));
       console.log('no flow from this location');
     }
   }
   else if (props.locationName !== 'Location'){
     if (props.inbound){
-      arcLayerData = arcLayerData.concat(ProductFlowData.filter(flow => flow.ToName === props.locationName));
+      arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.ToName === props.locationName));
     }
     if (props.outbound){
-      arcLayerData = arcLayerData.concat(ProductFlowData.filter(flow => flow.FromName === props.locationName));
+      arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.FromName === props.locationName));
     }
     if (arcLayerData.length === 0){
-      iconLayerData = iconLayerData.concat(LocationData.filter(location => location.Name === props.locationName));
+      iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === props.locationName));
       console.log('no flow from this location');
     }
   }
 
   if (arcLayerData.length > 0){
     for (let i = 0 ; i < arcLayerData.length; i++){
-      iconLayerData = iconLayerData.concat(LocationData.filter(location => location.Name === arcLayerData[i].FromName));
-      iconLayerData = iconLayerData.concat(LocationData.filter(location => location.Name === arcLayerData[i].ToName));
+      iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].FromName));
+      iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].ToName));
     }
   }
 
@@ -85,6 +87,7 @@ function DeckLayer(props) {
         getWidth: 1
     })
 ];
+  console.log(iconLayerData);
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
@@ -92,7 +95,7 @@ function DeckLayer(props) {
       layers={layers}
       getTooltip={({object}) => object && object.Name}
     >
-      <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
+      <StaticMap width="100vw" height="100vh" mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
     </DeckGL>
   );
 }

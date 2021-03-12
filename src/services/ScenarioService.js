@@ -36,6 +36,14 @@ const createMultipleProductFlowByScenarioId =  (id, data) => {
   return http.post(`/product_flows/${id}`, data);
 };
 
+const locationsGet = id => {
+  return http.get(`/locations/${id}`);
+};
+
+const productFlowsGet = id => {
+  return http.get(`/product_flows/${id}`);
+};
+
 export default {
   scenariosGetAll,
   scenariosGet,
@@ -45,5 +53,7 @@ export default {
   scenariosRemoveAll,
   scenariosFindByTitle,
   createMultipleLocationsByScenarioId,
-  createMultipleProductFlowByScenarioId
+  createMultipleProductFlowByScenarioId,
+  locationsGet,
+  productFlowsGet
 };
