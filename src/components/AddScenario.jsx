@@ -137,7 +137,7 @@ const AddScenario = (props) => {
   // };
 
   return (
-    <div className="float-left container overlap mt-3 col-lg-4">
+    <div className="float-left container overlap mt-3 col-lg-3">
       <div className="card">
         <div className="card-body">
           <div className="submit-form">

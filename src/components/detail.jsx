@@ -4,7 +4,7 @@ function Detail(props) {
     const inboundCard = props.productFlowData.filter(flow => flow.ToName === props.locationName||props.locationName === 'Location').map(flow => <div className="card mt-1"><p className="card-text">{flow.FromName +' to '+ flow.ToName +' '+ flow.Flow +' '+ flow.Unit +' '+ flow.Product }</p></div>)
     const outboundCard = props.productFlowData.filter(flow => flow.FromName === props.locationName||props.locationName === 'Location').map(flow => <div className="card mt-1"><p className="card-text">{flow.FromName +' to '+ flow.ToName +' '+ flow.Flow +' '+ flow.Unit +' '+ flow.Product }</p></div>)
     return (
-        <div className="float-right container overlap mt-3 col-lg-8">
+        <div className="float-right container overlap mt-3 col-lg-9">
             <div className="card">
                 {props.locationName === 'Location'? (
                 <div className="card-body">

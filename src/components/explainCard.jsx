@@ -12,7 +12,7 @@ function ExplainCard (props)  {
     
  
     return (
-        <div className="float-left container overlap mt-3 col-lg-4">
+        <div className="float-left container overlap mt-3 col-lg-3">
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Product Flow</h5>
@@ -55,28 +55,7 @@ function ExplainCard (props)  {
                         Show Details
                     </button>
                     )}
-                    {/* <hr></hr>
-                    <h5 className="card-title">Legend</h5>
-                    <div className="row ml-1">
-                        <div id='Customer'></div> 
-                        <p className="ml-3">Customer</p>
-                    </div>
-                    <div className="row ml-1">
-                        <div id='Supplier'></div> 
-                        <p className="ml-3">Suplier</p>
-                    </div>
-                    <div className="row ml-1">
-                        <div id='DC'></div> 
-                        <p className="ml-3">DC</p>
-                    </div>
-                    <div className="row ml-1">
-                        <div id='Factory'></div> 
-                        <p className="ml-3">Factory</p>
-                    </div> */}
-                </div>
-            </div>
-            <div className="card mt-3">
-                <div className="card-body">
+                    <hr></hr>
                     <h5 className="card-title">Legend</h5>
                     <div className="row ml-1">
                         <div id='Customer'></div> 
