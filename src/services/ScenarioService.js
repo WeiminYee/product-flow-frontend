@@ -12,10 +12,6 @@ const scenariosCreate = data => {
   return http.post("/scenarios", data);
 };
 
-const scenariosUpdate = (id, data) => {
-  return http.put(`/scenarios/${id}`, data);
-};
-
 const scenariosRemove = id => {
   return http.delete(`/scenarios/${id}`);
 };
@@ -48,7 +44,6 @@ export default {
   scenariosGetAll,
   scenariosGet,
   scenariosCreate,
-  scenariosUpdate,
   scenariosRemove,
   scenariosRemoveAll,
   scenariosFindByTitle,

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ScenarioDataService from "../services/ScenarioService";
 import { Link } from "react-router-dom";
+import Popup from "reactjs-popup";
+
 
 const ScenariosList = () => {
   const [scenarios, setScenarios] = useState([]);
-  const [currentScenario, setCurrentScenario] = useState(null);
   const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
@@ -29,7 +30,6 @@ const ScenariosList = () => {
 
   const refreshList = () => {
     retrieveScenarios();
-    setCurrentScenario(null);
   };
 
   const removeAllScenarios = () => {
@@ -102,7 +102,6 @@ const ScenariosList = () => {
               >
                 {scenario.scenario_name}
                 <div className='float-right'>
-                  {/* <button className='ml-3 btn btn-outline-success'> view on map </button> */}
                   <Link
                     to={"/scenarios/" + scenario.scenario_id}
                     className="ml-3 btn btn-outline-success"
@@ -122,12 +121,6 @@ const ScenariosList = () => {
         >
           Remove All Scenarios
         </button>
-        {/* <Link
-          to={"/scenarios/" + currentScenario.id}
-          className="badge badge-warning"
-        >
-          Edit
-        </Link> */}
       </div>
     </div>
     </div>

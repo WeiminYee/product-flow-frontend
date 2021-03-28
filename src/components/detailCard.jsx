@@ -1,6 +1,6 @@
 //import ProductFlowData from '../map_data/productflow.json';
 
-function Detail(props) {
+function DetailCard(props) {
     const inboundCard = props.productFlowData.filter(flow => flow.ToName === props.locationName||props.locationName === 'Location').map(flow => <div className="card mt-1"><p className="card-text">{flow.FromName +' to '+ flow.ToName +' '+ flow.Flow +' '+ flow.Unit +' '+ flow.Product }</p></div>)
     const outboundCard = props.productFlowData.filter(flow => flow.FromName === props.locationName||props.locationName === 'Location').map(flow => <div className="card mt-1"><p className="card-text">{flow.FromName +' to '+ flow.ToName +' '+ flow.Flow +' '+ flow.Unit +' '+ flow.Product }</p></div>)
     return (
@@ -29,4 +29,4 @@ function Detail(props) {
         </div>);
 }
  
-export default Detail;
+export default DetailCard;

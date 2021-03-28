@@ -2,7 +2,7 @@ import React from 'react';
 import '../icon/icon_mapping.css';
 //import LocationData from '../map_data/locations.json';
  
-function ExplainCard (props)  {
+function FilterCard (props)  {
     /*state = { show : false };
     handleDetails=() => {
          setState({show: ! state.show});
@@ -31,7 +31,7 @@ function ExplainCard (props)  {
                         </button>
                         <div className="dropdown-menu" aria-labelledby="locationDropdownMenuButton" style={{"maxHeight": "200px", "overflowY": "auto"}}>
                             <a key='allLocation' className="dropdown-item" onClick={props.selectLocation}>All</a>
-                            {props.locationData.filter(location => location.Type ===  props.categoryName ||  props.categoryName === 'Category').map(location => <a key={location.Name} className="dropdown-item" onClick={ props.selectLocation}>{location.Name}</a>)}
+                            {props.locationData.filter(location => location.Type ===  props.categoryName ||  props.categoryName === 'Location Type').map(location => <a key={location.Name} className="dropdown-item" onClick={ props.selectLocation}>{location.Name}</a>)}
                         </div>
                     </div>
                     <div className="form-check mt-3">
@@ -79,4 +79,4 @@ function ExplainCard (props)  {
     );
 }
  
-export default ExplainCard;
+export default FilterCard;

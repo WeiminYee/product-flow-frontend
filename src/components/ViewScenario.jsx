@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
 import ScenarioDataService from "../services/ScenarioService";
-import ExplainCard from "./explainCard";
+import FilterCard from "./filterCard";
 import DeckLayer from "./deckLayer";
-import Detail from "./detail";
-import AddScenario from "./AddScenario";
+import DetailCard from "./detail";
 
-class Content extends Component {
-  state = { 
-    category_name: 'Category',
-    location_name : 'Location',
-    inbound: true,
-    outbound: true,
-    show: false,
-    submitted: false,
-    productFlows: [],
-    locations: []
+class ViewScenario extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        category_name: 'Location Type',
+        location_name : 'Location',
+        inbound: true,
+        outbound: true,
+        show: false,
+        productFlows: [],
+        locations: []
+    };
+
+    console.log(props.match.params.id);
+    this.dataRetrieval(props.match.params.id);
   }
+  
+//   state = { 
+//     category_name: 'Location Type',
+//     location_name : 'Location',
+//     inbound: true,
+//     outbound: true,
+//     show: false,
+//     productFlows: [],
+//     locations: []
+//   }
 
   handleLocation = (e) => {
-    //console.log(e.target.text);
+    //console.log(e.target.text);s
     if (e.target.text === 'All'){
       this.setState({location_name : 'Location'});
     }
@@ -32,7 +47,7 @@ class Content extends Component {
       this.setState({location_name : 'Location'});
     }
     if (e.target.text === 'All'){
-      this.setState({category_name : 'Category'});
+      this.setState({category_name : 'Location Type'});
     }
     else{
       this.setState({category_name : e.target.text});
@@ -85,8 +100,7 @@ class Content extends Component {
           inbound = {this.state.inbound}
           outbound = {this.state.outbound}
         />
-        {this.state.submitted?(
-        <ExplainCard categoryName = {this.state.category_name} 
+        <FilterCard categoryName = {this.state.category_name} 
           locationData = {this.state.locations}
           selectCategory = {this.handleCategory}
           locationName = {this.state.location_name} 
@@ -97,13 +111,9 @@ class Content extends Component {
           selectOutbound = {this.handleOutbound}
           show = {this.state.show}
           selectShow = {this.handleDetails}
-        />):
-        (<AddScenario 
-          selectSubmit = {this.handleSubmit}
-          passScenarioid = {this.dataRetrieval}
-        />)}
+        />
         {this.state.show && 
-        <Detail
+        <DetailCard
           categoryName = {this.state.category_name}
           locationName = {this.state.location_name} 
           productFlowData = {this.state.productFlows}
@@ -114,4 +124,4 @@ class Content extends Component {
   }
 }
 
-export default Content;
+export default ViewScenario;

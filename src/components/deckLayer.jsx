@@ -24,11 +24,11 @@ let INITIAL_VIEW_STATE = {
 function DeckLayer(props) {
   let arcLayerData = [];
   let iconLayerData = [];
-  if (props.locationName === 'Location' && props.categoryName ==='Category') {
+  if (props.locationName === 'Location' && props.categoryName ==='Location Type') {
     arcLayerData = props.productFlowData;
     iconLayerData = props.locationData;
   }
-  else if (props.locationName === 'Location' && props.categoryName !=='Category'){
+  else if (props.locationName === 'Location' && props.categoryName !=='Location Type'){
     if (props.inbound){
       arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.ToType === props.categoryName));
     }
@@ -55,8 +55,8 @@ function DeckLayer(props) {
 
   if (arcLayerData.length > 0){
     for (let i = 0 ; i < arcLayerData.length; i++){
-      iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].FromName));
       iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].ToName));
+      iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].FromName));
     }
   }
 

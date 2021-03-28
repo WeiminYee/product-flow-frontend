@@ -3,6 +3,7 @@ import ScenarioDataService from "../services/ScenarioService";
 import { DataFrame } from 'pandas-js';
 import { Map } from 'immutable';
 import * as XLSX from 'xlsx';
+import { Link } from "react-router-dom";
 
 const AddScenario = (props) => {
   const initialScenarioState = {
@@ -50,7 +51,7 @@ const AddScenario = (props) => {
         //console.log(scenario_id);
         handleFileSubmission();
         setSubmitted(true);
-        props.selectSubmit();        
+        //props.selectSubmit();        
       })
       .catch(e => {
         console.log(e);
@@ -122,7 +123,7 @@ const AddScenario = (props) => {
       ScenarioDataService.createMultipleProductFlowByScenarioId(scenario_id, productflow_json)
         .then(response => {
           console.log(response.data.message);
-          props.passScenarioid(scenario_id);
+          //props.passScenarioid(scenario_id);
         })
         .catch(e => {
           console.log(e);
@@ -131,28 +132,34 @@ const AddScenario = (props) => {
 
 
 
-  // const newScenario = () => {
-  //   setScenario(initialScenarioState);
-  //   setSubmitted(false);
-  // };
+  const newScenario = () => {
+    setScenario(initialScenarioState);
+    setSubmitted(false);
+  };
 
   return (
-    <div className="float-left container overlap mt-3 col-lg-3">
+    <div className='container mt-3'>
       <div className="card">
         <div className="card-body">
           <div className="submit-form">
             {submitted ? (
               <div>
-                <h4>You submitted successfully!</h4>
-                {/* <button className="btn btn-success" onClick={newScenario}>
-                  Add
-                </button> */}
+                <h4>You submitted a supply chain scenario successfully!</h4>
+                <Link
+                  to={"/scenarios/" + scenario.scenario_id}
+                  className="ml-3 btn btn-outline-success"
+                >
+                  View On Map
+                </Link>
+                <button className="btn btn-outline-success ml-3" onClick={newScenario}>
+                  Add Another Scenario
+                </button>
               </div>
             ) : (
               <div>
-                <h5 className="card-title">Upload a scenario</h5>
+                <h5 className="card-title">Upload a Supply Chain Scenario</h5>
                 <div className="form-group">
-                  <label htmlFor="scenario_name">Scenario Name</label>
+                  <label htmlFor="scenario_name">Supply Chain Scenario Name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -164,7 +171,7 @@ const AddScenario = (props) => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="scenarioFile">Excel file for Scenario</label>
+                  <label htmlFor="scenarioFile">Excel file for Supply Chain Scenario</label>
                   <input 
                     type="file" 
                     className="form-control-file" 
