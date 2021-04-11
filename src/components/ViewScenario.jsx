@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ScenarioDataService from "../services/ScenarioService";
 import FilterCard from "./filterCard";
 import DeckLayer from "./deckLayer";
-import DetailCard from "./detail";
+import DetailCard from "./detailCard";
 
 class ViewScenario extends Component {
   constructor(props) {

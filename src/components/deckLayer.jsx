@@ -24,11 +24,11 @@ let INITIAL_VIEW_STATE = {
 function DeckLayer(props) {
   let arcLayerData = [];
   let iconLayerData = [];
-  if (props.locationName === 'Location' && props.categoryName ==='Location Type') {
+  if (props.locationName === 'Location' && props.categoryName ==='Location Type') { //when no user selection
     arcLayerData = props.productFlowData;
     iconLayerData = props.locationData;
   }
-  else if (props.locationName === 'Location' && props.categoryName !=='Location Type'){
+  else if (props.locationName === 'Location' && props.categoryName !=='Location Type'){ //location type selected
     if (props.inbound){
       arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.ToType === props.categoryName));
     }
@@ -40,20 +40,20 @@ function DeckLayer(props) {
       console.log('no flow from this location');
     }
   }
-  else if (props.locationName !== 'Location'){
-    if (props.inbound){
+  else if (props.locationName !== 'Location'){ //location selected
+    if (props.inbound){//show inbound to the location selected
       arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.ToName === props.locationName));
     }
-    if (props.outbound){
+    if (props.outbound){//show outbound to the location selected
       arcLayerData = arcLayerData.concat(props.productFlowData.filter(flow => flow.FromName === props.locationName));
     }
-    if (arcLayerData.length === 0){
+    if (arcLayerData.length === 0){//if no flow, show only the icon of selected location
       iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === props.locationName));
       console.log('no flow from this location');
     }
   }
 
-  if (arcLayerData.length > 0){
+  if (arcLayerData.length > 0){//show icon of all the locations involved in the flow
     for (let i = 0 ; i < arcLayerData.length; i++){
       iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].ToName));
       iconLayerData = iconLayerData.concat(props.locationData.filter(location => location.Name === arcLayerData[i].FromName));
